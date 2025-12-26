@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Bot, User, MessageCircle } from "lucide-react";
-import { ChatInput } from "./ChatInput";
+import { Bot, User, MessageCircle, Send } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface Message {
   id: string;
@@ -18,16 +18,26 @@ const mockResponses = [
 export const ChatContainer = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [input, setInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight);
   }, [messages, isTyping]);
 
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 120)}px`;
+    }
+  }, [input]);
+
   const handleSend = async (content: string) => {
     const userMessage: Message = { id: Date.now().toString(), role: "user", content };
     setMessages((prev) => [...prev, userMessage]);
     setIsTyping(true);
+    setInput("");
 
     const fullResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
     const assistantId = (Date.now() + 1).toString();
@@ -40,6 +50,13 @@ export const ChatContainer = () => {
       setMessages((prev) =>
         prev.map((m) => (m.id === assistantId ? { ...m, content: fullResponse.slice(0, i + 1) } : m))
       );
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (input.trim() && !isTyping) {
+      handleSend(input.trim());
     }
   };
 
@@ -115,7 +132,21 @@ export const ChatContainer = () => {
         )}
       </div>
       <div className="px-4 pb-4 pt-2">
-        <ChatInput onSend={handleSend} disabled={isTyping} />
+        <form onSubmit={handleSubmit} className="flex items-end gap-2 p-2 bg-chat-input-bg rounded-xl border border-border">
+          <textarea
+            ref={textareaRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && (e.preventDefault(), handleSubmit(e))}
+            placeholder="Ask me anything..."
+            disabled={isTyping}
+            rows={1}
+            className="flex-1 resize-none bg-transparent px-2 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none disabled:opacity-50 max-h-[120px]"
+          />
+          <Button type="submit" size="icon" disabled={!input.trim() || isTyping} className="h-9 w-9 rounded-lg chat-gradient text-primary-foreground">
+            <Send className="h-4 w-4" />
+          </Button>
+        </form>
       </div>
     </div>
   );

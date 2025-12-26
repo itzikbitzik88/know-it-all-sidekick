@@ -8,44 +8,24 @@
   :root {
     --background: 40 20% 98%;
     --foreground: 220 20% 15%;
-
     --card: 0 0% 100%;
     --card-foreground: 220 20% 15%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 220 20% 15%;
-
     --primary: 175 70% 40%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 40 15% 94%;
     --secondary-foreground: 220 20% 25%;
-
     --muted: 40 10% 92%;
     --muted-foreground: 220 10% 50%;
-
     --accent: 175 60% 94%;
     --accent-foreground: 175 70% 30%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 40 15% 88%;
     --input: 40 15% 88%;
     --ring: 175 70% 40%;
-
     --radius: 1rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-
-    /* Custom chat tokens */
     --chat-user-bg: 175 60% 94%;
     --chat-user-text: 175 70% 25%;
     --chat-assistant-bg: 0 0% 100%;
@@ -58,42 +38,23 @@
   .dark {
     --background: 220 25% 8%;
     --foreground: 40 15% 95%;
-
     --card: 220 20% 12%;
     --card-foreground: 40 15% 95%;
-
     --popover: 220 20% 12%;
     --popover-foreground: 40 15% 95%;
-
     --primary: 175 70% 50%;
     --primary-foreground: 220 25% 8%;
-
     --secondary: 220 15% 18%;
     --secondary-foreground: 40 15% 90%;
-
     --muted: 220 15% 20%;
     --muted-foreground: 40 10% 60%;
-
     --accent: 175 50% 20%;
     --accent-foreground: 175 70% 80%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 220 15% 20%;
     --input: 220 15% 20%;
     --ring: 175 70% 50%;
-
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-
-    /* Custom chat tokens - dark */
     --chat-user-bg: 175 50% 20%;
     --chat-user-text: 175 60% 90%;
     --chat-assistant-bg: 220 20% 14%;
@@ -102,42 +63,13 @@
     --chat-gradient-start: 175 70% 45%;
     --chat-gradient-end: 190 80% 50%;
   }
-}
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground font-sans antialiased;
-  }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
 }
 
 @layer utilities {
   .chat-gradient {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--chat-gradient-start)),
-      hsl(var(--chat-gradient-end))
-    );
-  }
-
-  .scrollbar-thin {
-    scrollbar-width: thin;
-    scrollbar-color: hsl(var(--muted)) transparent;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: hsl(var(--muted));
-    border-radius: 3px;
+    background: linear-gradient(135deg, hsl(var(--chat-gradient-start)), hsl(var(--chat-gradient-end)));
   }
 }
