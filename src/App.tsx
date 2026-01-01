@@ -1,6 +1,7 @@
 import { Toaster } from "@/components/ui/toaster";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ChatContainer } from "@/components/chat/ChatContainer";
+import { AccessibilityStatement } from "@/pages/AccessibilityStatement";
 import { useEffect } from "react";
 
 const NotFound = () => {
@@ -32,6 +33,7 @@ const App = () => (
             </div>
           </main>
         } />
+        <Route path="/accessibility" element={<AccessibilityStatement />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

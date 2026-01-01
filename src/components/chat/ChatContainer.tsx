@@ -147,6 +147,14 @@ export const ChatContainer = () => {
 
       {/* Input area */}
       <div className="px-3 py-3 bg-muted border-t border-border">
+        <div className="flex items-center justify-between mb-2">
+          <a 
+            href="/accessibility" 
+            className="text-sm text-muted-foreground hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+          >
+            הצהרת נגישות
+          </a>
+        </div>
         <form onSubmit={handleSubmit} className="flex items-end gap-3" role="search" aria-label="שלח הודעה">
           <div className="flex-1 bg-card rounded-full border border-border px-5 py-3">
             <label htmlFor="chat-input" className="sr-only">הקלד הודעה</label>
