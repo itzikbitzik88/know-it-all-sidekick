@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,62 +6,66 @@
 
 @layer base {
   :root {
-    --background: 40 20% 98%;
+    /* WhatsApp-inspired light theme with purple grape accent */
+    --background: 220 15% 96%;
     --foreground: 220 20% 15%;
     --card: 0 0% 100%;
     --card-foreground: 220 20% 15%;
     --popover: 0 0% 100%;
     --popover-foreground: 220 20% 15%;
-    --primary: 175 70% 40%;
+    --primary: 270 60% 55%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 40 15% 94%;
+    --secondary: 220 10% 92%;
     --secondary-foreground: 220 20% 25%;
-    --muted: 40 10% 92%;
-    --muted-foreground: 220 10% 50%;
-    --accent: 175 60% 94%;
-    --accent-foreground: 175 70% 30%;
+    --muted: 220 10% 90%;
+    --muted-foreground: 220 10% 45%;
+    --accent: 270 50% 95%;
+    --accent-foreground: 270 60% 40%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 40 15% 88%;
-    --input: 40 15% 88%;
-    --ring: 175 70% 40%;
-    --radius: 1rem;
-    --chat-user-bg: 175 60% 94%;
-    --chat-user-text: 175 70% 25%;
+    --border: 220 10% 88%;
+    --input: 220 10% 88%;
+    --ring: 270 60% 55%;
+    --radius: 0.5rem;
+    
+    /* WhatsApp-style chat colors */
+    --chat-user-bg: 270 55% 60%;
+    --chat-user-text: 0 0% 100%;
     --chat-assistant-bg: 0 0% 100%;
     --chat-assistant-text: 220 20% 20%;
     --chat-input-bg: 0 0% 100%;
-    --chat-gradient-start: 175 70% 45%;
-    --chat-gradient-end: 190 80% 50%;
+    --chat-wallpaper: 30 20% 93%;
+    --chat-header-bg: 270 60% 55%;
   }
 
   .dark {
-    --background: 220 25% 8%;
+    --background: 220 20% 10%;
     --foreground: 40 15% 95%;
-    --card: 220 20% 12%;
+    --card: 220 18% 14%;
     --card-foreground: 40 15% 95%;
-    --popover: 220 20% 12%;
+    --popover: 220 18% 14%;
     --popover-foreground: 40 15% 95%;
-    --primary: 175 70% 50%;
-    --primary-foreground: 220 25% 8%;
+    --primary: 270 60% 60%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 220 15% 18%;
     --secondary-foreground: 40 15% 90%;
     --muted: 220 15% 20%;
     --muted-foreground: 40 10% 60%;
-    --accent: 175 50% 20%;
-    --accent-foreground: 175 70% 80%;
+    --accent: 270 40% 25%;
+    --accent-foreground: 270 60% 85%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
-    --ring: 175 70% 50%;
-    --chat-user-bg: 175 50% 20%;
-    --chat-user-text: 175 60% 90%;
-    --chat-assistant-bg: 220 20% 14%;
+    --border: 220 15% 22%;
+    --input: 220 15% 22%;
+    --ring: 270 60% 60%;
+    
+    --chat-user-bg: 270 50% 45%;
+    --chat-user-text: 0 0% 100%;
+    --chat-assistant-bg: 220 18% 16%;
     --chat-assistant-text: 40 15% 92%;
-    --chat-input-bg: 220 20% 14%;
-    --chat-gradient-start: 175 70% 45%;
-    --chat-gradient-end: 190 80% 50%;
+    --chat-input-bg: 220 18% 14%;
+    --chat-wallpaper: 220 20% 8%;
+    --chat-header-bg: 270 50% 35%;
   }
 
   * { @apply border-border; }
@@ -70,6 +74,11 @@
 
 @layer utilities {
   .chat-gradient {
-    background: linear-gradient(135deg, hsl(var(--chat-gradient-start)), hsl(var(--chat-gradient-end)));
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(270 70% 65%));
+  }
+  
+  .chat-wallpaper {
+    background-color: hsl(var(--chat-wallpaper));
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 }
