@@ -61,44 +61,44 @@ export const ChatContainer = () => {
   };
 
   return (
-    <div className="flex flex-col h-full">
-      {/* WhatsApp-style header */}
-      <div className="bg-primary px-4 py-3 flex items-center gap-3 shadow-sm">
-        <div className="w-10 h-10 rounded-full bg-primary-foreground/20 flex items-center justify-center text-xl">
-          🍇
-        </div>
-        <div className="flex-1">
-          <h1 className="text-primary-foreground font-semibold text-base">עוזר גפן</h1>
-          <p className="text-primary-foreground/80 text-xs">מאגר הספקים של משרד החינוך</p>
-        </div>
-      </div>
-
-      {/* Chat area with wallpaper */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 py-3 space-y-2 chat-wallpaper">
+    <main id="main-content" className="flex flex-col h-full" role="main">
+      {/* Chat area with wallpaper - full height without header */}
+      <div 
+        ref={scrollRef} 
+        className="flex-1 overflow-y-auto px-4 py-4 space-y-3 chat-wallpaper"
+        role="log"
+        aria-live="polite"
+        aria-label="היסטוריית הצ'אט"
+      >
         {messages.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="flex flex-col items-center justify-center h-full text-center px-4"
           >
-            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-3xl mb-4">
+            <div 
+              className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center text-4xl mb-5"
+              role="img"
+              aria-label="לוגו גפן צ'אט"
+            >
               🍇
             </div>
-            <h2 className="text-lg font-semibold text-foreground mb-2">ברוכים הבאים לעוזר גפן</h2>
-            <p className="text-muted-foreground max-w-md text-sm mb-5">
+            <h1 className="text-2xl font-bold text-foreground mb-3">ברוכים הבאים לגפן צ'אט</h1>
+            <p className="text-muted-foreground max-w-md text-lg mb-6 leading-relaxed">
               שאלו אותי כל שאלה ואחפש במאגר הספקים של משרד החינוך כדי לספק תשובות רלוונטיות.
             </p>
-            <div className="flex flex-wrap gap-2 justify-center">
+            <nav aria-label="שאלות לדוגמה" className="flex flex-wrap gap-3 justify-center">
               {["במה אתה יכול לעזור לי?", "איך זה עובד?", "הראה לי דוגמה"].map((s) => (
                 <button 
                   key={s} 
                   onClick={() => handleSend(s)} 
-                  className="px-3 py-2 text-sm bg-card text-foreground rounded-full hover:bg-secondary transition-colors shadow-sm border border-border"
+                  className="px-4 py-3 text-base bg-card text-foreground rounded-full hover:bg-secondary transition-colors shadow-sm border border-border focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  aria-label={`שאל: ${s}`}
                 >
                   {s}
                 </button>
               ))}
-            </div>
+            </nav>
           </motion.div>
         ) : (
           <>
@@ -109,26 +109,33 @@ export const ChatContainer = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className={`flex ${msg.role === "user" ? "justify-start" : "justify-end"}`}
               >
-                <div
-                  className={`max-w-[80%] px-3 py-2 text-sm shadow-sm ${
+                <article
+                  className={`max-w-[85%] px-4 py-3 text-base shadow-sm leading-relaxed ${
                     msg.role === "user"
-                      ? "bg-chat-user-bg text-chat-user-text rounded-lg rounded-tr-none"
-                      : "bg-chat-assistant-bg text-chat-assistant-text rounded-lg rounded-tl-none"
+                      ? "bg-chat-user-bg text-chat-user-text rounded-2xl rounded-tr-sm"
+                      : "bg-chat-assistant-bg text-chat-assistant-text rounded-2xl rounded-tl-sm"
                   }`}
+                  aria-label={msg.role === "user" ? "ההודעה שלך" : "תשובת גפן צ'אט"}
                 >
                   {msg.role === "assistant" && (
-                    <span className="text-xs mb-1 block text-primary font-medium">🍇 עוזר גפן</span>
+                    <span className="text-sm mb-2 block text-primary font-semibold">🍇 גפן צ'אט</span>
                   )}
                   {msg.content}
-                </div>
+                </article>
               </motion.div>
             ))}
             <AnimatePresence>
               {isTyping && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex justify-end">
-                  <div className="bg-chat-assistant-bg rounded-lg rounded-tl-none shadow-sm px-3 py-2 flex gap-1">
+                <motion.div 
+                  initial={{ opacity: 0 }} 
+                  animate={{ opacity: 1 }} 
+                  exit={{ opacity: 0 }} 
+                  className="flex justify-end"
+                  aria-label="גפן צ'אט מקליד..."
+                >
+                  <div className="bg-chat-assistant-bg rounded-2xl rounded-tl-sm shadow-sm px-4 py-3 flex gap-1.5">
                     {[0, 1, 2].map((i) => (
-                      <span key={i} className="w-2 h-2 rounded-full bg-primary animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
+                      <span key={i} className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
                     ))}
                   </div>
                 </motion.div>
@@ -138,11 +145,13 @@ export const ChatContainer = () => {
         )}
       </div>
 
-      {/* WhatsApp-style input area */}
-      <div className="px-2 py-2 bg-muted">
-        <form onSubmit={handleSubmit} className="flex items-end gap-2">
-          <div className="flex-1 bg-card rounded-full border border-border px-4 py-2">
+      {/* Input area */}
+      <div className="px-3 py-3 bg-muted border-t border-border">
+        <form onSubmit={handleSubmit} className="flex items-end gap-3" role="search" aria-label="שלח הודעה">
+          <div className="flex-1 bg-card rounded-full border border-border px-5 py-3">
+            <label htmlFor="chat-input" className="sr-only">הקלד הודעה</label>
             <textarea
+              id="chat-input"
               ref={textareaRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -150,19 +159,22 @@ export const ChatContainer = () => {
               placeholder="הקלד הודעה..."
               disabled={isTyping}
               rows={1}
-              className="w-full resize-none bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none disabled:opacity-50 max-h-[120px]"
+              className="w-full resize-none bg-transparent text-base text-foreground placeholder:text-muted-foreground focus:outline-none disabled:opacity-50 max-h-[120px]"
+              aria-describedby="input-hint"
             />
+            <span id="input-hint" className="sr-only">לחץ Enter לשליחה או Shift+Enter לשורה חדשה</span>
           </div>
           <Button 
             type="submit" 
             size="icon" 
             disabled={!input.trim() || isTyping} 
-            className="h-10 w-10 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shrink-0"
+            className="h-12 w-12 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shrink-0 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            aria-label="שלח הודעה"
           >
-            <Send className="h-5 w-5 rotate-180" />
+            <Send className="h-5 w-5 rotate-180" aria-hidden="true" />
           </Button>
         </form>
       </div>
-    </div>
+    </main>
   );
 };
